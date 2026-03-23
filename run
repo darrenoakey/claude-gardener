@@ -1,0 +1,26 @@
+#!/usr/bin/env python3
+# run — pure bootstrap facade. No logic here. Everything delegates to src/main.py.
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+SCRIPT_DIR = Path(__file__).parent.resolve()
+VENV = SCRIPT_DIR / ".venv"
+REQS = SCRIPT_DIR / "requirements.txt"
+PYTHON = VENV / "bin" / "python"
+
+# Guard against infinite re-exec
+if Path(sys.executable).resolve() == PYTHON.resolve():
+    os.execv(str(PYTHON), [str(PYTHON), str(SCRIPT_DIR / "src" / "main.py")] + sys.argv[1:])
+
+# Create venv if missing
+if not VENV.exists():
+    subprocess.run([sys.executable, "-m", "venv", str(VENV)], check=True)
+
+# Install / sync requirements
+if REQS.exists():
+    subprocess.run([str(PYTHON), "-m", "pip", "install", "-q", "-r", str(REQS)], check=True)
+
+# Hand off entirely — this process is replaced, no return
+os.execv(str(PYTHON), [str(PYTHON), str(SCRIPT_DIR / "src" / "main.py")] + sys.argv[1:])

@@ -1,0 +1,2 @@
+-e /Volumes/T9/darrenoakey/src/daz-agent-sdk
+setproctitle
