@@ -67,3 +67,7 @@ You can pass arguments directly to the agent:
 - No `pip install`, `venv` creation, or dependency management is needed on your part — the `run` script handles everything automatically on first launch.
 - Subsequent runs are faster as the environment is already in place.
 - To reset the environment, delete the `.venv` directory in the project root and run `./run` again.
+
+## License
+
+This project is licensed under [CC BY-NC 4.0](https://darren-static.waft.dev) - free to use and modify, but no commercial use without permission.
